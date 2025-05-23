@@ -1,5 +1,9 @@
 # Next.js Authentication Project 🚀
 
+<p align="center">
+  <img src="https://cdn.freelogovectors.net/wp-content/uploads/2023/09/next-js-logo-freelogovectors.net_.png" alt="Next.js Logo" width="200">
+</p>
+
 A comprehensive authentication system built with Next.js, NextAuth.js, and Drizzle ORM. This project provides a complete authentication flow including user registration, login, password management, and two-factor authentication.
 
 ## Features ✨
