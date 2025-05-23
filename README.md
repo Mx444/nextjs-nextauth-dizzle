@@ -1,163 +1,177 @@
-# Progetto di Autenticazione Next.js 🚀
+# Next.js Authentication Project 🚀
 
-Questo progetto è un'applicazione Next.js che implementa funzionalità di autenticazione, tra cui login, registrazione, reset della password e autenticazione a due fattori.
+A comprehensive authentication system built with Next.js, NextAuth.js, and Drizzle ORM. This project provides a complete authentication flow including user registration, login, password management, and two-factor authentication.
 
-## Funzionalità ✨
+## Features ✨
 
-- Registrazione utente 📝
-- Login utente con email e password 🔐
-- Reset della password via email 📧
-- Funzionalità di cambio password 🔄
-- Autenticazione a due fattori con Google Authenticator 🔑
-- Rotte protette per utenti autenticati 🔒
-- Notifiche toast per feedback agli utenti 📢
+- **User Authentication**
+  - Email and password login
+  - Session management with NextAuth.js
+  - Protected routes with middleware
 
-## Tecnologie Utilizzate 🛠️
+- **User Registration**
+  - Email validation
+  - Password strength requirements
+  - Duplicate email detection
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- Drizzle ORM
-- Neon Database
-- bcryptjs per hashing delle password
-- nodemailer per l'invio di email
-- zod per la validazione degli schemi
-- next-auth per l'autenticazione
+- **Password Management**
+  - Password reset via email
+  - Password change for authenticated users
+  - Secure password hashing with bcrypt
 
-## Struttura del Progetto 📂
+- **Two-Factor Authentication (2FA)**
+  - Google Authenticator integration
+  - QR code generation for easy setup
+  - Enable/disable 2FA from user account
+
+- **Security Features**
+  - CSRF protection
+  - Rate limiting
+  - Secure HTTP-only cookies
+  - Password validation with Zod
+
+## Project Structure 📁
 
 ```
-/app
-    ├── (logged-in)
-    │   ├── change-password
-    │   │   ├── change-password-form
-    │   │   │   ├── actions.ts
-    │   │   │   └── index.tsx
-    │   │   └── page.tsx
-    │   ├── layout.tsx
-    │   ├── logout-button
-    │   │   ├── actions.ts
-    │   │   └── index.tsx
-    │   ├── my-account
-    │   │   ├── page.tsx
-    │   │   └── two-factor-auth-form
-    │   │       ├── actions.ts
-    │   │       └── index.tsx
-    ├── (logged-out)
-    │   ├── layout.tsx
-    │   ├── login
-    │   │   ├── actions.ts
-    │   │   └── page.tsx
-    │   ├── password-reset
-    │   │   ├── actions.ts
-    │   │   └── page.tsx
-    │   ├── register
-    │   │   ├── actions.ts
-    │   │   └── page.tsx
-    │   ├── update-password
-    │       ├── page.tsx
-    │       └── update-password-form
-    │           ├── actions.ts
-    │           └── index.tsx
-    ├── api
-    │   └── auth
-    │       └── [...nextauth]
-    │           └── route.ts
-    ├── globals.css
-    ├── layout.tsx
-    └── page.tsx
-/components
-    ├── ui
-    │   ├── button.tsx
-    │   ├── card.tsx
-    │   ├── form.tsx
-    │   ├── input-otp.tsx
-    │   ├── input.tsx
-    │   ├── label.tsx
-    │   ├── toast.tsx
-    │   ├── toaster.tsx
-    │   └── use-toast.ts
-/db
-    ├── drizzle.ts
-    ├── passwordResetTokensSchema.ts
-    ├── schema.ts
-    └── usersSchema.ts
-/lib
-    ├── email.ts
-    └── utils.ts
-/validation
-    ├── passwordMatchSchema.ts
-    └── passwordSchema.ts
+nextjs-nextauth-dizzle/
+├── app/                      # Next.js app directory
+│   ├── (logged-in)/          # Protected routes for authenticated users
+│   │   ├── change-password/  # Password change functionality
+│   │   ├── my-account/       # User account management
+│   │   └── layout.tsx        # Layout for authenticated routes
+│   ├── (logged-out)/         # Public routes
+│   │   ├── login/            # Login functionality
+│   │   ├── register/         # User registration
+│   │   ├── password-reset/   # Password reset flow
+│   │   └── update-password/  # Password update after reset
+│   └── api/                  # API routes
+├── components/               # UI components
+│   └── ui/                   # Shadcn UI components
+├── db/                       # Database configuration
+│   ├── drizzle.ts            # Drizzle ORM setup
+│   ├── usersSchema.ts        # User table schema
+│   └── passwordResetTokensSchema.ts # Password reset tokens schema
+├── lib/                      # Utility functions
+│   ├── email.ts              # Email sending functionality
+│   └── utils.ts              # Helper functions
+├── public/                   # Static assets
+├── validation/               # Zod validation schemas
+│   ├── passwordMatchSchema.ts # Password matching validation
+│   └── passwordSchema.ts     # Password strength validation
+└── auth.ts                   # NextAuth.js configuration
 ```
 
-## Iniziare 🚀
+## Technologies Used 🛠️
 
-### Prerequisiti 📋
+- **Frontend**
+  - [Next.js 14](https://nextjs.org/) - React framework
+  - [React](https://reactjs.org/) - UI library
+  - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+  - [Shadcn UI](https://ui.shadcn.com/) - UI component library
 
-- Node.js
-- npm o yarn
-- Database PostgreSQL
+- **Authentication**
+  - [NextAuth.js](https://next-auth.js.org/) - Authentication for Next.js
+  - [bcrypt](https://www.npmjs.com/package/bcryptjs) - Password hashing
+  - [otplib](https://www.npmjs.com/package/otplib) - TOTP for 2FA
+  - [qrcode.react](https://www.npmjs.com/package/qrcode.react) - QR code generation
 
-### Installazione 💻
+- **Database**
+  - [Drizzle ORM](https://orm.drizzle.team/) - TypeScript ORM
+  - [PostgreSQL](https://www.postgresql.org/) - Relational database
 
-1. Clona il repository:
+- **Validation**
+  - [Zod](https://zod.dev/) - TypeScript-first schema validation
+  - [React Hook Form](https://react-hook-form.com/) - Form validation
 
-   ```sh
-   git clone https://github.com/your-username/next-js-auth.git
-   cd next-js-auth
-   ```
+## Getting Started 🚀
 
-2. Installa le dipendenze:
+### Prerequisites
 
-   ```sh
-   npm install
-   # oppure
-   yarn install
-   ```
+- Node.js 18+ and npm
+- PostgreSQL database
 
-3. Configura le variabili d'ambiente:
-   Crea un file `.env.local` nella directory principale e aggiungi le seguenti variabili:
+### Installation
 
-   ```env
-   NEON_DATABASE_URL=your_neon_database_url
-   RESEND_API_KEY=your_resend_api_key
-   SITE_BASE_URL=http://localhost:3000
-   ```
+1. Clone the repository
+```bash
+git clone https://github.com/yourusername/nextjs-nextauth-dizzle.git
+cd nextjs-nextauth-dizzle
+```
 
-4. Esegui le migrazioni del database:
+2. Install dependencies
+```bash
+npm install
+```
 
-   ```sh
-   npx drizzle-kit generate:pg
-   ```
+3. Set up environment variables
+Create a `.env.local` file in the root directory with the following variables:
+```
+# Database
+DATABASE_URL=postgresql://username:password@localhost:5432/your_database
 
-5. Avvia il server di sviluppo:
-   ```sh
-   npm run dev
-   # oppure
-   yarn dev
-   ```
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-nextauth-secret
 
-## Utilizzo 📖
+# Email (for password reset)
+EMAIL_SERVER=smtp://username:password@smtp.example.com:587
+EMAIL_FROM=noreply@example.com
+```
 
-- Visita `http://localhost:3000` per accedere all'applicazione.
-- Registra un nuovo account, effettua il login ed esplora le funzionalità.
+4. Run database migrations
+```bash
+npm run db:migrate
+```
 
-## Contributi 🤝
+5. Start the development server
+```bash
+npm run dev
+```
 
-I contributi sono benvenuti! Per favore apri un'issue o invia una pull request per qualsiasi miglioramento o correzione di bug.
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## Licenza 📄
+## Authentication Flow 🔄
 
-Questo progetto è concesso in licenza sotto la Licenza MIT.
+### Registration
+1. User enters email and password
+2. System validates input and checks for duplicate emails
+3. Password is hashed and stored in the database
+4. User is redirected to login page
 
-## Ringraziamenti 🙏
+### Login
+1. User enters email and password
+2. System validates credentials
+3. If 2FA is enabled, user is prompted for OTP
+4. On successful authentication, user is redirected to account page
 
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Drizzle ORM](https://github.com/drizzle-team/drizzle-orm)
-- [Neon Database](https://neon.tech/)
-- [bcryptjs](https://github.com/dcodeIO/bcrypt.js/)
-- [nodemailer](https://nodemailer.com/)
-- [zod](https://github.com/colinhacks/zod)
-- [next-auth](https://next-auth.js.org/)
+### Password Reset
+1. User requests password reset by providing email
+2. System sends reset link with token to user's email
+3. User clicks link and enters new password
+4. System validates token and updates password
+
+### Two-Factor Authentication
+1. User enables 2FA from account settings
+2. System generates QR code for Google Authenticator
+3. User scans QR code and enters OTP to confirm
+4. 2FA is enabled for future logins
+
+## Security Considerations 🔒
+
+- Passwords are hashed using bcrypt
+- Authentication tokens are short-lived and rotated
+- Two-factor authentication adds an extra layer of security
+- Form inputs are validated on both client and server
+- Protected routes are secured with middleware
+- CSRF protection is enabled
+
+## License 📝
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements 🙏
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [NextAuth.js Documentation](https://next-auth.js.org/getting-started/introduction)
+- [Drizzle ORM Documentation](https://orm.drizzle.team/docs/overview)
+- [Shadcn UI](https://ui.shadcn.com/)
